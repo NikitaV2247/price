@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{% if mode == 'new' %}Новая находка{% else %}Редактирование{% endif %}{% endblock %}
+{% block content %}
+<h1>{% if mode == 'new' %}Новая находка{% else %}Редактирование находки{% endif %}</h1>
+<form class="panel form" method="post">
+  <label>Название<input name="title" required value="{{ item.title if item else '' }}" /></label>
+  <label>Описание<textarea name="description" rows="3">{{ item.description if item else '' }}</textarea></label>
+  <label>Дата находки<input name="date_found" type="date" required value="{{ item.date_found if item else '' }}" /></label>
+  <label>Место находки<input name="place" required value="{{ item.place if item else '' }}" /></label>
+  <div class="actions">
+    <button type="submit">Сохранить</button>
+    <a class="link" href="{{ url_for('items_list') }}">Отмена</a>
+  </div>
+</form>
+{% endblock %}

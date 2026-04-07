@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Бюро находок{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="wrap bar-inner">
+        <a class="logo" href="{{ url_for('items_list') }}">Бюро находок</a>
+        {% if g.user %}
+        <nav class="nav">
+          <span class="who">{{ g.user.username }}</span>
+          {% if g.user.role == 'admin' %}
+          <a href="{{ url_for('admin_item_new') }}">Новая находка</a>
+          {% endif %}
+          <a href="{{ url_for('logout') }}">Выход</a>
+        </nav>
+        {% endif %}
+      </div>
+    </header>
+    <main class="wrap">
+      {% with msgs = get_flashed_messages() %}
+        {% if msgs %}
+        <div class="flash">
+          {% for m in msgs %}<p>{{ m }}</p>{% endfor %}
+        </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

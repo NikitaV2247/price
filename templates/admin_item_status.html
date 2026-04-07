@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Статус — {{ item.title }}{% endblock %}
+{% block content %}
+<h1>Статус выдачи</h1>
+
+<form class="panel form" method="post">
+  <label>Статус
+    <select name="status" required>
+      {% for s in statuses %}
+      <option value="{{ s }}">{{ s }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <div class="actions">
+    <button type="submit">Записать в журнал</button>
+    <a class="link" href="{{ url_for('items_list') }}">К списку</a>
+  </div>
+</form>
+
+{% if history %}
+<h2 class="subh">История статусов</h2>
+<ul class="history">
+  {% for h in history %}
+  <li><span class="mono">{{ h.created_at }}</span> — {{ m.status_badge(h.status) }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

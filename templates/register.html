@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<h1>Регистрация</h1>
+<p class="hint">После регистрации вы сможете только просматривать список находок.</p>
+<form class="panel form" method="post">
+  <label>Логин<input name="username" autocomplete="username" required /></label>
+  <label>Пароль<input name="password" type="password" autocomplete="new-password" required /></label>
+  <div class="actions">
+    <button type="submit">Зарегистрироваться</button>
+    <a class="link" href="{{ url_for('login') }}">Уже есть аккаунт</a>
+  </div>
+</form>
+{% endblock %}

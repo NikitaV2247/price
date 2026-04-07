@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Находки{% endblock %}
+{% block content %}
+<h1>Учёт находок</h1>
+
+{% if not items %}
+<div class="panel empty">Пока нет записей.</div>
+{% else %}
+<div class="cards">
+  {% for it in items %}
+  <article class="card" data-id="{{ it.id }}">
+    
+    <div class="card-body">
+      <h2 class="card-title">{{ it.title }}</h2>
+      {% if it.description %}
+      <p class="card-desc">{{ it.description }}</p>
+      {% endif %}
+      <p class="card-meta"><span class="label">Дата находки:</span> {{ it.date_found }}</p>
+      <p class="card-meta">
+        <span class="label">Место:</span>
+        {{ it.place }}
+      </p>
+      <div class="card-status">{{ m.status_badge(it.current_status) }}</div>
+      {% if g.user.role == 'admin' %}
+      <div class="card-admin">
+        <a href="{{ url_for('admin_item_status', item_id=it.id) }}">Статус</a>
+        <a href="{{ url_for('admin_item_edit', item_id=it.id) }}">Правка</a>
+        <form method="post" action="{{ url_for('admin_item_delete', item_id=it.id) }}" class="inline-form" onsubmit="return confirm('Удалить запись?');">
+          <button type="submit">Удалить</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% macro status_badge(status) -%}
+  {% if status == 'Найдено' %}
+    <span class="badge badge-found">{{ status }}</span>
+  {% elif status == 'Забрано' %}
+    <span class="badge badge-claimed">{{ status }}</span>
+  {% else %}
+    <span class="badge">{{ status }}</span>
+  {% endif %}
+{%- endmacro %}

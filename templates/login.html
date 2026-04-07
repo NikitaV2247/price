@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Вход — Бюро находок{% endblock %}
+{% block content %}
+<h1>Вход</h1>
+<form class="panel form" method="post">
+  <label>Логин<input name="username" autocomplete="username" required /></label>
+  <label>Пароль<input name="password" type="password" autocomplete="current-password" required /></label>
+  <div class="actions">
+    <button type="submit">Войти</button>
+    <a class="link" href="{{ url_for('register') }}">Регистрация</a>
+  </div>
+</form>
+{% endblock %}
