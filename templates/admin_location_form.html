@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Место — правка{% endblock %}
+{% block content %}
+<h1>Редактирование места</h1>
+<form class="panel form" method="post">
+  <label>Кабинет<input name="cabinet" required value="{{ loc.cabinet }}" /></label>
+  <label>Этаж<input name="floor" value="{{ loc.floor }}" /></label>
+  <label>Корпус<input name="building" value="{{ loc.building }}" /></label>
+  <div class="actions">
+    <button type="submit">Сохранить</button>
+    <a class="link" href="{{ url_for('admin_locations') }}">Назад</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Места (кабинеты){% endblock %}
+{% block content %}
+<h1>Места хранения / находки</h1>
+
+<form class="panel form inline-add" method="post">
+  <h2 class="subh">Добавить место</h2>
+  <div class="grid-3">
+    <label>Кабинет<input name="cabinet" required placeholder="201" /></label>
+    <label>Этаж<input name="floor" placeholder="2" /></label>
+    <label>Корпус<input name="building" placeholder="А" /></label>
+  </div>
+  <button type="submit">Добавить</button>
+</form>
+
+{% if not locations %}
+<p class="hint">Список пуст.</p>
+{% else %}
+<ul class="loc-list">
+  {% for loc in locations %}
+  <li class="loc-item" data-id="{{ loc.id }}">
+    <span class="loc-text">каб. <strong>{{ loc.cabinet }}</strong>{% if loc.floor %}, эт. {{ loc.floor }}{% endif %}{% if loc.building %}, корп. {{ loc.building }}{% endif %}</span>
+    <span class="loc-actions">
+      <a href="{{ url_for('admin_location_edit', loc_id=loc.id) }}">Изменить</a>
+      <form method="post" action="{{ url_for('admin_location_delete', loc_id=loc.id) }}" class="inline-form" onsubmit="return confirm('Удалить место?');">
+        <button type="submit">Удалить</button>
+      </form>
+    </span>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
